@@ -8,7 +8,7 @@ hl.config({}) -- remove this line to remove the warning
 -- Global Programs Configuration
 terminal    = "kitty"
 fileManager = "dolphin"
-menu        = "hyprlauncher"
+menu        = "rofi -show drun"
 
 -- Require config components
 require("environment")
