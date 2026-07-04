@@ -1,0 +1,90 @@
+/* Waybar custom stylesheet in Rose Pine Moon */
+
+* {
+    border: none;
+    border-radius: 0;
+    font-family: "JetBrains Mono Nerd Font", monospace;
+    font-size: 13px;
+    min-height: 0;
+}
+
+window#waybar {
+    background-color: rgba(35, 33, 54, 0.85); /* base with opacity */
+    color: #e0def4; /* text */
+    transition-property: background-color;
+    transition-duration: .5s;
+    border-bottom: 2px solid rgba(196, 167, 231, 0.3); /* iris border accent */
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+#workspaces button {
+    padding: 0 10px;
+    color: #6e6a86; /* muted */
+    background-color: transparent;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+
+#workspaces button:hover {
+    color: #e0def4; /* text */
+    background-color: rgba(110, 106, 134, 0.2);
+    border-bottom: 3px solid rgba(196, 167, 231, 0.5);
+}
+
+#workspaces button.active {
+    color: #c4a7e7; /* iris */
+    border-bottom: 3px solid #c4a7e7;
+    font-weight: bold;
+}
+
+#workspaces button.urgent {
+    color: #eb6f92; /* love */
+    border-bottom: 3px solid #eb6f92;
+}
+
+#mode, #clock, #cpu, #memory, #pulseaudio, #network, #tray, #custom-notification {
+    padding: 0 14px;
+    margin: 5px 3px;
+    border-radius: 8px;
+    background-color: rgba(42, 39, 63, 0.7); /* surface with opacity */
+    color: #e0def4;
+}
+
+#clock {
+    color: #f6c177; /* gold */
+    font-weight: bold;
+}
+
+#cpu {
+    color: #ebbcba; /* rose */
+}
+
+#memory {
+    color: #9ccfd8; /* foam */
+}
+
+#pulseaudio {
+    color: #31748f; /* pine */
+}
+
+#network {
+    color: #c4a7e7; /* iris */
+}
+
+#custom-notification {
+    color: #eb6f92; /* love */
+    font-size: 14px;
+}
+
+#tray {
+    background-color: rgba(57, 53, 82, 0.7); /* overlay */
+}
+
+#window {
+    font-weight: bold;
+    color: #e0def4;
+    padding: 0 10px;
+}
