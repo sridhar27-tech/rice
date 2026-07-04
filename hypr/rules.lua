@@ -82,3 +82,22 @@ hl.window_rule({
     match = { class = "^(Spotify|spotify|amberol|audacious)$" },
     workspace = "5"
 })
+
+-- Common utility windows should always float
+hl.window_rule({
+    name  = "float-pavucontrol",
+    match = { class = "^(pavucontrol|org.pulseaudio.pavucontrol)$" },
+    float = true
+})
+
+hl.window_rule({
+    name  = "float-nm-connection-editor",
+    match = { class = "^(nm-connection-editor)$" },
+    float = true
+})
+
+hl.window_rule({
+    name  = "float-system-dialogs",
+    match = { class = "^(polkit-gnome-authentication-agent-1|org.kde.polkit-kde-authentication-agent-1|Pinentry-gtk)$" },
+    float = true
+})
