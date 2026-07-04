@@ -1,0 +1,126 @@
+/* SwayNC Style sheet in Rosé Pine Moon */
+
+@define-color base #232136;
+@define-color surface #2a273f;
+@define-color overlay #393552;
+@define-color muted #6e6a86;
+@define-color subtle #908caa;
+@define-color text #e0def4;
+@define-color love #eb6f92;
+@define-color gold #f6c177;
+@define-color rose #ebbcba;
+@define-color pine #31748f;
+@define-color foam #9ccfd8;
+@define-color iris #c4a7e7;
+
+* {
+  font-family: "JetBrains Mono Nerd Font", sans-serif;
+  font-size: 13px;
+}
+
+/* Control Center */
+.control-center {
+  background: rgba(35, 33, 54, 0.95);
+  border: 2px solid @iris;
+  border-radius: 12px;
+  color: @text;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  margin: 10px;
+}
+
+/* Notifications */
+.notification {
+  background: @surface;
+  border: 1px solid @overlay;
+  border-radius: 8px;
+  color: @text;
+  margin: 6px;
+  padding: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.notification:hover {
+  background: @overlay;
+  border-color: @iris;
+}
+
+.notification-content {
+  margin: 4px;
+}
+
+.notification-default-image {
+  border-radius: 6px;
+}
+
+.notification-action {
+  background: @surface;
+  color: @text;
+  border-radius: 4px;
+  margin: 4px;
+}
+
+.notification-action:hover {
+  background: @overlay;
+}
+
+/* Critical Urgency */
+.notification.critical {
+  border: 2px solid @love;
+}
+
+/* Widgets */
+.widget-title {
+  margin: 8px;
+  font-weight: bold;
+  font-size: 16px;
+  color: @gold;
+}
+
+.widget-title > button {
+  background: @surface;
+  color: @text;
+  border-radius: 6px;
+  padding: 4px 10px;
+}
+
+.widget-title > button:hover {
+  background: @overlay;
+  color: @iris;
+}
+
+.widget-dnd {
+  margin: 8px;
+  color: @foam;
+}
+
+.widget-dnd > switch {
+  background: @surface;
+  border: 1px solid @overlay;
+  border-radius: 12px;
+}
+
+.widget-dnd > switch:checked {
+  background: @iris;
+}
+
+/* MPRIS Widget */
+.widget-mpris {
+  background: @surface;
+  border: 1px solid @overlay;
+  border-radius: 8px;
+  padding: 8px;
+  margin: 8px;
+}
+
+.widget-mpris-player {
+  padding: 4px;
+}
+
+.widget-mpris-title {
+  font-weight: bold;
+  color: @rose;
+}
+
+.widget-mpris-subtitle {
+  color: @subtle;
+}
