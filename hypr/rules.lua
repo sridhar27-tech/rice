@@ -84,4 +84,5 @@ hl.window_rule({
     match = { class = "^(HomeClockWidget)$" },
     float = true,
     workspace = "1",
+    keepbelow = true,
 })

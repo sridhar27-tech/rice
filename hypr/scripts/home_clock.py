@@ -14,21 +14,22 @@ class ClockWidget(Gtk.Window):
         self.set_app_paintable(True)
         self.set_default_size(320, 160)
 
-        # Enable transparency/RGBA visual on the window
+        # Enable transparency/RGBA visual
         screen = self.get_screen()
         visual = screen.get_rgba_visual()
         if visual is not None and screen.is_composited():
             self.set_visual(visual)
 
-        # Enable dragging by clicking and dragging anywhere on the widget
-        self.add_events(Gdk.EventMask.BUTTON_PRESS_MASK | Gdk.EventMask.BUTTON1_MOTION_MASK)
-        self.connect("button-press-event", self.on_button_press)
+        # EventBox to capture mouse events for dragging
+        event_box = Gtk.EventBox()
+        event_box.set_visible_window(False)  # Transparent event box
+        self.add(event_box)
 
-        # Layout
+        # Layout inside event_box
         vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=4)
         vbox.set_valign(Gtk.Align.CENTER)
         vbox.set_halign(Gtk.Align.CENTER)
-        self.add(vbox)
+        event_box.add(vbox)
 
         self.time_label = Gtk.Label()
         self.time_label.get_style_context().add_class("time-label")
@@ -38,8 +39,12 @@ class ClockWidget(Gtk.Window):
         self.date_label.get_style_context().add_class("date-label")
         vbox.pack_start(self.date_label, True, True, 0)
 
-        # Style with Rose Pine Moon glassmorphism
+        # Styles
         self.apply_css()
+
+        # Connect drag events to EventBox
+        event_box.add_events(Gdk.EventMask.BUTTON_PRESS_MASK)
+        event_box.connect("button-press-event", self.on_button_press)
 
         # Update clock
         self.update_clock()
@@ -50,7 +55,8 @@ class ClockWidget(Gtk.Window):
 
     def on_button_press(self, widget, event):
         if event.button == 1:  # Left click drag
-            self.begin_move_drag(event.button, event.x_root, event.y_root, event.time)
+            # Explicitly cast coordinates to integer for the Wayland drag API
+            self.begin_move_drag(event.button, int(event.x_root), int(event.y_root), event.time)
             return True
         return False
 
@@ -91,7 +97,6 @@ class ClockWidget(Gtk.Window):
         )
 
 if __name__ == "__main__":
-    # Set app name / class name for Wayland window matching
     GLib.set_prgname("HomeClockWidget")
     GLib.set_application_name("HomeClockWidget")
     
