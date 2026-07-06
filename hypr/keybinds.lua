@@ -98,3 +98,27 @@ hl.bind("XF86AudioNext",  hl.dsp.exec_cmd("playerctl next"),       { locked = tr
 hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
 hl.bind("XF86AudioPlay",  hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
 hl.bind("XF86AudioPrev",  hl.dsp.exec_cmd("playerctl previous"),   { locked = true })
+
+-- screenshot
+hl.bind(
+    "ALT + PRINT",
+    hl.dsp.exec_cmd([[sh -c 'mkdir -p "$HOME/Pictures/Screenshots" && grim "$HOME/Pictures/Screenshots/$(date +%F_%H-%M-%S).png"']])
+)
+
+hl.bind(
+    "SHIFT + PRINT",
+    hl.dsp.exec_cmd([[sh -c 'mkdir -p "$HOME/Pictures/Screenshots" && grim -g "$(slurp)" "$HOME/Pictures/Screenshots/$(date +%F_%H-%M-%S).png"']])
+)
+
+-- fan control
+hl.bind(
+    "SUPER + SHIFT + Up",
+    hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/fan_control.sh up"),
+    { repeating = true }
+)
+
+hl.bind(
+    "SUPER + SHIFT + Down",
+    hl.dsp.exec_cmd("bash ~/.config/hypr/scripts/fan_control.sh down"),
+    { repeating = true }
+)
