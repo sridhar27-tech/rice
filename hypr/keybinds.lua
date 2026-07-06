@@ -58,6 +58,13 @@ hl.bind(mainMod .. " + ALT + right", hl.dsp.window.resize({ x = 40, y = 0, relat
 hl.bind(mainMod .. " + ALT + up",    hl.dsp.window.resize({ x = 0, y = -40, relative = true }), { repeating = true })
 hl.bind(mainMod .. " + ALT + down",  hl.dsp.window.resize({ x = 0, y = 40, relative = true }), { repeating = true })
 
+-- Swap windows with ALT + SHIFT + arrow keys
+hl.bind("ALT + SHIFT + left",  hl.dsp.window.swap({ direction = "l" }))
+hl.bind("ALT + SHIFT + right", hl.dsp.window.swap({ direction = "r" }))
+hl.bind("ALT + SHIFT + up",    hl.dsp.window.swap({ direction = "u" }))
+hl.bind("ALT + SHIFT + down",  hl.dsp.window.swap({ direction = "d" }))
+
+
 -- Switch workspaces with mainMod + [0-9]
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]
 for i = 1, 10 do
