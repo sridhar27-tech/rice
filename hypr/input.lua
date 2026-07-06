@@ -14,10 +14,10 @@ hl.config({
 
         sensitivity = 0, -- -1.0 - 1.0, 0 means no modification.
 
-        natural_scroll = true,
+        natural_scroll = false,
 
         touchpad = {
-            natural_scroll = true,
+            natural_scroll = false,
         },
     },
 })
@@ -37,10 +37,10 @@ hl.device({
 
 hl.device({
     name = "usb-optical-mouse-",
-    natural_scroll = true
+    natural_scroll = false
 })
 
 hl.device({
     name = "elan07c7:00-04f3:3298-mouse",
-    natural_scroll = true
+    natural_scroll = false
 })
