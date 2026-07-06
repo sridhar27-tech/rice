@@ -23,13 +23,25 @@ hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("firefox"))
 hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("waypaper")) -- Wallpaper browser
 hl.bind("ALT + Tab", function ()
     local active_ws = hl.get_active_workspace()
-    local next_ws = 1
+    local workspaces = hl.get_workspaces()
+
+    -- collect and sort workspace ids that exist
+    local ids = {}
+    for _, ws in ipairs(workspaces) do
+        table.insert(ids, ws.id)
+    end
+    table.sort(ids)
+
+    local next_ws = ids[1]
     if active_ws then
-        next_ws = active_ws.id + 1
-        if next_ws > 10 then
-            next_ws = 1
+        for _, id in ipairs(ids) do
+            if id > active_ws.id then
+                next_ws = id
+                break
+            end
         end
     end
+
     hl.dispatch(hl.dsp.focus({ workspace = next_ws }))
 end)
 
