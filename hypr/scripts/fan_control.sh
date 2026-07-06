@@ -14,8 +14,9 @@ if [ -f "$ENABLE_PATH" ]; then
     echo "1" > "$ENABLE_PATH" 2>/dev/null
 fi
 
-CURRENT_VAL=$(cat "$PWM_PATH")
-STEP=25
+CURRENT_VAL=$(cat "$PWM_PATH" 2>/dev/null)
+CURRENT_VAL=${CURRENT_VAL:-0}
+STEP=26
 
 case "$1" in
     up)
