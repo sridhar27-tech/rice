@@ -1,23 +1,56 @@
-# IDE / Browser caches and data
-Code - OSS/
-Code/
-VSCodium/
-mozilla/
-google-chrome/
-chromium/
+# Ignore everything by default
+*
 
-# Sensitive CLI credentials
-gh/
+# Keep .gitignore itself
+!.gitignore
 
-# KDE / System state and pairing keys
-kdeconnect/
-KDE/
-dconf/
-pulse/
-session/
-kwalletrc
+# Whitelist custom ricing config directories
+!hypr/
+!hypr/**
 
-# Logs and temporary files
-*.log
-*~
-*.bak
+!waybar/
+!waybar/**
+
+!swaync/
+!swaync/**
+
+!kitty/
+!kitty/**
+
+!eww/
+!eww/**
+
+!waypaper/
+!waypaper/**
+
+!cava/
+!cava/**
+
+!wlogout/
+!wlogout/**
+
+!wofi/
+!wofi/**
+
+!fastfetch/
+!fastfetch/**
+
+!gtk-3.0/
+!gtk-3.0/**
+
+!gtk-4.0/
+!gtk-4.0/**
+
+!xsettingsd/
+!xsettingsd/**
+
+!zathura/
+!zathura/**
+
+# MPD (track config only, ignore state/db/logs)
+!mpd/
+!mpd/mpd.conf
+mpd/database
+mpd/log
+mpd/state
+mpd/sticker.sql
