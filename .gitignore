@@ -48,6 +48,9 @@
 !zathura/
 !zathura/**
 
+!pics/
+!pics/**
+
 # MPD (track config only, ignore state/db/logs)
 !mpd/
 !mpd/mpd.conf
