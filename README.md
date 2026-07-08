@@ -2,6 +2,10 @@
 
 This repository contains the configuration files for a desktop environment based on Hyprland, Waybar, and other utilities.
 
+<p align="center">
+  <img src="pics/2026-07-08_10-11-28.png" alt="Hyprland Desktop Environment Screenshot" width="85%" style="border-radius: 12px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5); border: 2px solid #c4a7e7;" />
+</p>
+
 ## Compatible Distributions
 * Arch Linux
 * EndeavourOS
