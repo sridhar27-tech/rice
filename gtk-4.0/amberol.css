@@ -1,0 +1,291 @@
+/* Rose Pine Moon Palette for Amberol */
+@define-color rp_base #232136;
+@define-color rp_surface #2a273f;
+@define-color rp_overlay #393552;
+@define-color rp_text #e0def4;
+@define-color rp_muted #908caa;
+@define-color rp_accent #c4a7e7;
+@define-color rp_secondary #9ccfd8;
+@define-color rp_error #eb6f92;
+
+/* 1. Window Background & Opacity */
+/* Make the top-level GTK window transparent */
+window:has(songcover),
+window:has(playbackcontrol) {
+  background-color: transparent !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* Make the window decoration and main background translucent Rose Pine Moon base */
+window:has(songcover) > decoration,
+window:has(songcover) > decoration-overlay,
+window:has(songcover) .background {
+  background-color: rgba(35, 33, 54, 0.92) !important;
+  background: rgba(35, 33, 54, 0.92) !important;
+  border-radius: 16px !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* Remove default dynamic linear gradients on the main player area so Rose Pine Moon base shows */
+.main-window {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* Sidebar/Playlist view - Rose Pine Moon Surface with 85% opacity */
+playlistview {
+  background-color: rgba(42, 39, 63, 0.85) !important;
+  background: rgba(42, 39, 63, 0.85) !important;
+  border: none !important;
+}
+
+/* Initial view status page transparency */
+statuspage,
+.drag-overlay-status-page {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+/* 2. Spacing & Padding */
+.main-box {
+  padding: 16px 20px 24px 20px !important;
+}
+
+songcover {
+  padding-bottom: 28px !important;
+}
+
+songdetails {
+  padding-top: 16px !important;
+  padding-bottom: 28px !important;
+}
+
+playbackcontrol {
+  padding-bottom: 20px !important;
+  margin-top: 8px !important;
+}
+
+/* Typography overrides */
+songdetails label.song-title {
+  font-family: "Inter", "Outfit", "Noto Sans", sans-serif !important;
+  font-size: 18pt !important;
+  font-weight: 800 !important;
+  color: @rp_text !important;
+  margin-bottom: 6px !important;
+}
+
+songdetails label.song-artist {
+  font-family: "Inter", "Outfit", "Noto Sans", sans-serif !important;
+  font-size: 11pt !important;
+  font-weight: 500 !important;
+  color: @rp_muted !important;
+}
+
+songdetails label.song-album {
+  font-family: "Inter", "Outfit", "Noto Sans", sans-serif !important;
+  font-size: 10pt !important;
+  font-weight: 400 !important;
+  color: rgba(144, 140, 170, 0.6) !important;
+}
+
+/* 3. Album Artwork */
+songcover picture.cover,
+songcover image.card {
+  border-radius: 16px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
+  border: 1px solid rgba(196, 167, 231, 0.35) !important; /* Thin Iris border */
+  margin: 12px !important;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+songcover picture.cover:hover,
+songcover image.card:hover {
+  transform: scale(1.03) !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* 4. Playback Controls */
+playbackcontrol button.circular {
+  background-color: @rp_overlay !important;
+  color: @rp_text !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 9999px !important;
+  min-width: 40px !important;
+  min-height: 40px !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+playbackcontrol button.circular:hover {
+  transform: scale(1.1) !important;
+  background-color: color-mix(in srgb, var(--background-color-0, @rp_accent) 20%, @rp_overlay) !important;
+  color: @rp_accent !important;
+}
+
+playbackcontrol button.circular:active {
+  transform: scale(0.95) !important;
+}
+
+/* Checked/Active state for shuffle, repeat, playlist buttons */
+playbackcontrol button.circular:checked {
+  background-color: rgba(196, 167, 231, 0.25) !important; /* Translucent Iris */
+  color: @rp_accent !important;
+  border: 1px solid rgba(196, 167, 231, 0.4) !important;
+}
+
+/* Large circular Play Button */
+playbackcontrol button.large {
+  background-color: color-mix(in srgb, var(--background-color-0, @rp_accent) 30%, @rp_accent) !important;
+  color: @rp_base !important;
+  border-radius: 9999px !important;
+  min-width: 60px !important;
+  min-height: 60px !important;
+  box-shadow: 0 4px 14px rgba(196, 167, 231, 0.35) !important;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+playbackcontrol button.large:hover {
+  transform: scale(1.12) !important;
+  background-color: color-mix(in srgb, var(--background-color-0, #d6bdf2) 30%, #d6bdf2) !important;
+  box-shadow: 0 6px 20px rgba(196, 167, 231, 0.5) !important;
+}
+
+playbackcontrol button.large:active {
+  transform: scale(0.92) !important;
+}
+
+/* 5. Progress and Volume Sliders */
+/* WaveformView (Progress Bar) */
+waveformview {
+  color: color-mix(in srgb, var(--background-color-0, @rp_accent) 30%, @rp_accent) !important;
+  transition: color 0.3s ease !important;
+}
+
+/* Volume Slider */
+volume scale trough {
+  background-color: @rp_overlay !important;
+  border-radius: 9999px !important;
+  min-height: 6px !important;
+  border: none !important;
+}
+
+volume scale trough highlight {
+  background-color: color-mix(in srgb, var(--background-color-0, @rp_accent) 30%, @rp_accent) !important;
+  border-radius: 9999px !important;
+}
+
+volume scale trough slider {
+  background-color: @rp_text !important;
+  border: 2px solid @rp_accent !important;
+  border-radius: 9999px !important;
+  min-width: 14px !important;
+  min-height: 14px !important;
+  opacity: 1 !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3) !important;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+volume scale trough slider:hover {
+  transform: scale(1.25) !important;
+}
+
+/* 6. Headerbar & Borders */
+window:has(songcover) headerbar {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  min-height: 48px !important;
+}
+
+window:has(songcover) headerbar > windowhandle {
+  background: transparent !important;
+}
+
+/* Remove all harsh separators and borders */
+window:has(songcover) separator,
+window:has(songcover) splitview > separator,
+window:has(songcover) toolbarview > separator {
+  background-color: transparent !important;
+  opacity: 0 !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+}
+
+/* 7. Playlist & Scrollbars */
+listview.navigation-sidebar row {
+  border-radius: 10px !important;
+  margin: 3px 8px !important;
+  padding: 4px 6px !important;
+  background-color: transparent !important;
+  transition: all 0.2s ease !important;
+}
+
+listview.navigation-sidebar row:hover {
+  background-color: rgba(57, 53, 82, 0.4) !important; /* Overlay 40% */
+}
+
+listview.navigation-sidebar row:selected {
+  background-color: rgba(196, 167, 231, 0.2) !important; /* Iris 20% */
+  color: @rp_accent !important;
+  outline: none !important;
+}
+
+/* Accent color for the active playing song in the list */
+listview.navigation-sidebar row:selected label,
+listview.navigation-sidebar row:selected inscription,
+queuerow:has(image[icon-name="audio-only-symbolic"]) label,
+queuerow:has(image[icon-name="audio-only-symbolic"]) inscription {
+  color: @rp_accent !important;
+  font-weight: 700 !important;
+}
+
+/* Active song icon tint */
+queuerow image[icon-name="audio-only-symbolic"] {
+  color: @rp_accent !important;
+}
+
+/* Queue row typography spacing */
+queuerow label.song-title {
+  font-family: "Inter", "Outfit", "Noto Sans", sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 13px !important;
+  color: @rp_text !important;
+}
+
+queuerow label.song-artist {
+  font-family: "Inter", "Outfit", "Noto Sans", sans-serif !important;
+  font-size: 11px !important;
+  color: @rp_muted !important;
+}
+
+/* Thin Scrollbars */
+window:has(songcover) scrollbar {
+  background: transparent !important;
+  border: none !important;
+  min-width: 6px !important;
+  min-height: 6px !important;
+}
+
+window:has(songcover) scrollbar trough {
+  background: transparent !important;
+  border: none !important;
+}
+
+window:has(songcover) scrollbar slider {
+  background-color: rgba(144, 140, 170, 0.3) !important;
+  border-radius: 9999px !important;
+  border: none !important;
+  min-width: 4px !important;
+  min-height: 4px !important;
+  transition: all 0.2s ease !important;
+}
+
+window:has(songcover) scrollbar slider:hover {
+  background-color: @rp_accent !important;
+  min-width: 6px !important;
+}
