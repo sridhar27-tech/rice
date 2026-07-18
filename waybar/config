@@ -70,6 +70,8 @@
         "format-icons": {
             "default": ["󰕿", "󰖀", "󰕾"]
         },
+        "max-volume": 150,
+        "scroll-step": 5,
         "on-click": "pavucontrol"
     },
 
