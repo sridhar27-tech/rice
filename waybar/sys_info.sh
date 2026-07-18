@@ -36,14 +36,38 @@ elif [ -n "$AMD_TEMP" ]; then
     GPU_SOURCE="AMD"
 fi
 
+# Median filter helper to smooth out erratic sensor spikes/drops
+get_median_speed() {
+    local sensor_path="$1"
+    local cache_file="$2"
+    local raw_val=$(cat "$sensor_path" 2>/dev/null || echo 0)
+    
+    local history=""
+    if [ -f "$cache_file" ]; then
+        history=$(cat "$cache_file" 2>/dev/null)
+    fi
+    
+    history="$history $raw_val"
+    # Keep only the last 5 entries
+    history=$(echo $history | tr ' ' '\n' | grep -v '^$' | tail -n 5 | tr '\n' ' ')
+    echo "$history" > "$cache_file"
+    
+    local count=$(echo $history | tr ' ' '\n' | grep -v '^$' | wc -l)
+    if [ "$count" -lt 5 ]; then
+        echo "$raw_val"
+    else
+        echo $history | tr ' ' '\n' | sort -n | sed -n '3p'
+    fi
+}
+
 # Fan Speed (hp-wmi hwmon)
 FAN1=0
 FAN2=0
 for name_file in /sys/class/hwmon/hwmon*/name; do
     if [ -f "$name_file" ] && [ "$(cat "$name_file")" = "hp" ]; then
         DIR=$(dirname "$name_file")
-        FAN1=$(cat "$DIR/fan1_input" 2>/dev/null || echo 0)
-        FAN2=$(cat "$DIR/fan2_input" 2>/dev/null || echo 0)
+        FAN1=$(get_median_speed "$DIR/fan1_input" "/tmp/waybar_fan1_history")
+        FAN2=$(get_median_speed "$DIR/fan2_input" "/tmp/waybar_fan2_history")
         break
     fi
 done
