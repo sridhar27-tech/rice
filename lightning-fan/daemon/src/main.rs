@@ -4,13 +4,20 @@ use tokio::io::{AsyncReadExt, AsyncWriteExt};
 use tokio::signal;
 use serde::{Serialize, Deserialize};
 use std::sync::Arc;
-use std::path::{Path, PathBuf};
+use std::path::PathBuf;
 use std::fs;
 use std::io::Write; // Added for audit logging
 use std::process::Command;
 use std::time::{Duration, Instant};
 
-const SOCKET_PATH: &str = "/run/user/1000/lightning-fan.sock";
+fn get_socket_path() -> PathBuf {
+    if let Ok(xdg_dir) = std::env::var("XDG_RUNTIME_DIR") {
+        PathBuf::from(xdg_dir).join("lightning-fan.sock")
+    } else {
+        PathBuf::from("/tmp/lightning-fan.sock")
+    }
+}
+
 const AUDIT_LOG_DIR: &str = "/home/bow/.local/share/lightning-fan";
 const AUDIT_LOG_PATH: &str = "/home/bow/.local/share/lightning-fan/audit.log";
 
@@ -214,8 +221,8 @@ fn write_hardware_fan(state: &mut DaemonState, enable_manual: bool, speed: u8) -
             state.last_write_time = now;
         }
     } else {
-        // Restore BIOS automatic control
-        fs::write(&pwm1_enable_path, "0")
+        // Restore BIOS automatic control (Mode 2)
+        fs::write(&pwm1_enable_path, "2")
             .map_err(|e| format!("Failed to write pwm1_enable: {}", e))?;
 
         if state.last_speed_written != 0 {
@@ -278,16 +285,18 @@ async fn main() {
 
     let state = Arc::new(Mutex::new(DaemonState::new(hw_paths)));
 
+    let socket_path = get_socket_path();
+
     // Ensure stale socket is cleaned up
-    if Path::new(SOCKET_PATH).exists() {
-        let _ = fs::remove_file(SOCKET_PATH);
+    if socket_path.exists() {
+        let _ = fs::remove_file(&socket_path);
     }
 
-    let listener = UnixListener::bind(SOCKET_PATH).expect("Failed to bind Unix socket");
+    let listener = UnixListener::bind(&socket_path).expect("Failed to bind Unix socket");
     // Make socket user-writable
-    let _ = Command::new("chmod").args(["660", SOCKET_PATH]).status();
+    let _ = Command::new("chmod").args(["660", socket_path.to_str().unwrap()]).status();
 
-    println!("Unix socket listening at {}", SOCKET_PATH);
+    println!("Unix socket listening at {:?}", socket_path);
 
     // Spawn Watchdog Timer
     let state_wd = Arc::clone(&state);
@@ -446,6 +455,6 @@ async fn main() {
 
     // Cancel socket listener task
     listener_handler.abort();
-    let _ = fs::remove_file(SOCKET_PATH);
+    let _ = fs::remove_file(get_socket_path());
     println!("Daemon stopped cleanly.");
 }

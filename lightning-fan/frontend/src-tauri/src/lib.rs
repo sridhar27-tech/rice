@@ -4,11 +4,19 @@ use std::thread;
 use std::time::Duration;
 use tauri::Emitter;
 
-const SOCKET_PATH: &str = "/run/user/1000/lightning-fan.sock";
+use std::path::PathBuf;
+
+fn get_socket_path() -> PathBuf {
+    if let Ok(xdg_dir) = std::env::var("XDG_RUNTIME_DIR") {
+        PathBuf::from(xdg_dir).join("lightning-fan.sock")
+    } else {
+        PathBuf::from("/tmp/lightning-fan.sock")
+    }
+}
 
 #[tauri::command]
 fn send_command(cmd: String) -> Result<(), String> {
-    let mut stream = UnixStream::connect(SOCKET_PATH)
+    let mut stream = UnixStream::connect(get_socket_path())
         .map_err(|e| format!("Failed to connect to daemon: {}", e))?;
     
     let cmd_with_nl = format!("{}\n", cmd);
@@ -29,7 +37,7 @@ pub fn run() {
             // and emit events containing telemetry back to the webview
             thread::spawn(move || {
                 loop {
-                    if let Ok(stream) = UnixStream::connect(SOCKET_PATH) {
+                    if let Ok(stream) = UnixStream::connect(get_socket_path()) {
                         let reader = BufReader::new(stream);
                         for line in reader.lines().flatten() {
                             let _ = app_handle.emit("telemetry", line);
