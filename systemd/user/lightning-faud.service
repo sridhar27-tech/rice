@@ -1,0 +1,11 @@
+[Unit]
+Description=Lightning Fan Control Daemon
+After=default.target
+
+[Service]
+ExecStart=/home/bow/.config/lightning-fan/daemon/target/release/lightning-faud
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=default.target

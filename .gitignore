@@ -65,3 +65,12 @@ mpd/sticker.sql
 
 !wireplumber/
 !wireplumber/**
+
+# Systemd custom user units
+!systemd/
+!systemd/user/
+!systemd/user/lightning-faud.service
+
+# Lightning Fan custom utility
+!lightning-fan/
+!lightning-fan/**

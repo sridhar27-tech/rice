@@ -1,0 +1,14 @@
+# Rust build artifacts
+target/
+Cargo.lock
+
+# Node dependencies and builds
+node_modules/
+dist/
+dist-phone/
+src-tauri/target/
+
+# Local configuration / logs
+*.log
+.DS_Store
+.vscode/
